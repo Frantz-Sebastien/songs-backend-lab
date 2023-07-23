@@ -14,7 +14,7 @@ songs.get("/", async (req, res) => {
   if(allSongs[0]){
     res.status(200).json(allSongs);
   } else {
-    res.status(500).json({ error: "server error" })
+    res.status(500).json({ error: "Can't show all the songs... bummer..." })
   }
 });
 
@@ -25,7 +25,7 @@ songs.get("/:id", async (req, res)=>{
     if (song){
         res.json(song);
     } else {
-        res.status(404).json({ error: "not found" })
+        res.status(404).json({ error: "that song isn't on the list" })
     }
 });
 
@@ -35,7 +35,7 @@ songs.post("/", checkName, checkBoolean, async (req, res)=>{
         const song = await createSong(req.body);
         res.json(song);
     } catch (error){
-        res.status(400).json({ error: "can't create. there's an error" })
+        res.status(400).json({ error: "Can't add a song. there's an error" })
     }
 })
 
@@ -46,7 +46,7 @@ songs.delete("/:id", async (req, res)=>{
     if(deletedSong.id){
         res.status(200).json(deletedSong)
     } else{
-        res.status(404).json("Can't find that song")
+        res.status(404).json("Can't delete a song I can't find")
     }
 })
 
