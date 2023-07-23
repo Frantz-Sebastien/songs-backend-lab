@@ -32,10 +32,10 @@ songs.get("/:id", async (req, res)=>{
 //CREATE
 songs.post("/", checkName, checkBoolean, async (req, res)=>{
     try{
-        const song = await createSong(req,body);
+        const song = await createSong(req.body);
         res.json(song);
     } catch (error){
-        res.status(400).json({ error: error })
+        res.status(400).json({ error: "can't create. there's an error" })
     }
 })
 
@@ -48,6 +48,13 @@ songs.delete("/:id", async (req, res)=>{
     } else{
         res.status(404).json("Can't find that song")
     }
+})
+
+//UPDATE
+songs.put(":/id", checkName, checkBoolean, async (req,res)=>{
+    const { id } =req.params;
+    const editSong = await editSong(id, req.body)
+    res.status(200).json(editSong)
 })
 
 module.exports = songs;
