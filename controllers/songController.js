@@ -6,7 +6,7 @@ const { getAllSongs,
     deleteSong,
     editSong
  } = require("../queries/songs")
- const { checkBoolean, checkName } = require("../validations/checkSongs.js")
+ const { checkBoolean, checkSongName, checkArtistName } = require("../validations/checkSongs.js")
 
 // INDEX
 songs.get("/", async (req, res) => {
@@ -30,7 +30,7 @@ songs.get("/:id", async (req, res)=>{
 });
 
 //CREATE
-songs.post("/", checkName, checkBoolean, async (req, res)=>{
+songs.post("/", checkSongName, checkBoolean, checkArtistName, async (req, res)=>{
     try{
         const song = await createSong(req.body);
         res.json(song);
@@ -51,7 +51,7 @@ songs.delete("/:id", async (req, res)=>{
 })
 
 //UPDATE
-songs.put("/:id", checkName, checkBoolean, async (req,res)=>{
+songs.put("/:id", checkSongName, checkBoolean, checkArtistName, async (req,res)=>{
     const { id } =req.params
     const editedSong = await editSong(id, req.body)
     res.status(200).json(editedSong)

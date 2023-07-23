@@ -1,8 +1,16 @@
-const checkName = (req, res, next) => {
+const checkSongName = (req, res, next) => {
   if (req.body.name) {
     next();
   } else {
-    res.status(400).json({ error: "You gotta put the artist name, baby!" });
+    res.status(400).json({ error: "You gotta put the song's name, baby!" });
+  }
+}
+
+const checkArtistName = (req, res, next) =>{
+  if(req.body.artist){
+    next()
+  } else{
+    res.status(400).json({ error: "You DO know the artist name, right?"})
   }
 }
 
@@ -18,4 +26,4 @@ const checkBoolean = (req, res, next) => {
     res.status(400).json({ error: "Is that a favorite song, or nah? You gotta decide, baby!" });
   }
 };  
-  module.exports = { checkName, checkBoolean };
+  module.exports = { checkSongName, checkBoolean, checkArtistName };
